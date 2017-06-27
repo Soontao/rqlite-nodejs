@@ -1,0 +1,13 @@
+{
+    "extends": "standard",
+    "plugins": [
+        "standard",
+        "promise"
+    ],
+    "env": {
+        "mocha": true
+    },
+    "rules": {
+        "camelcase": "off"
+    }
+}

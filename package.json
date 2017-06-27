@@ -1,0 +1,42 @@
+{
+  "name": "rqlite-nodejs",
+  "version": "1.0.0",
+  "description": "rqlite client for nodejs",
+  "main": "rqlite-client.js",
+  "engines": {
+    "node": "8.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Soontao/rqlite-nodejs.git"
+  },
+  "keywords": [
+    "rqlite",
+    "db"
+  ],
+  "author": "Theo Sun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Soontao/rqlite-nodejs/issues"
+  },
+  "homepage": "https://github.com/Soontao/rqlite-nodejs#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "debug": "^2.6.8",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "lodash": "^4.17.4",
+    "mocha": "^3.4.2"
+  }
+}
