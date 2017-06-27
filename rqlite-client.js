@@ -2,11 +2,26 @@ var request = require('request-promise')
 var debug = require('debug')('rqlite')
 var _ = require('lodash')
 
+/**
+ * RqliteClinet
+ * 
+ * @class RqliteClinet
+ */
 class RqliteClinet {
+  /**
+   * Creates an instance of RqliteClinet.
+   * @param {string} apiUri 
+   * @param {string} [username=''] 
+   * @param {string} [password=''] 
+   * @memberof RqliteClinet
+   */
   constructor (apiUri, username = '', password = '') {
     if (username && password) {
       this.useBasicAuth = true
-      this.basicAuth = { username, password }
+      this.basicAuth = {
+        username,
+        password
+      }
     }
     this.apiUri = apiUri
     this._refreshServerStatus()
@@ -15,10 +30,13 @@ class RqliteClinet {
   async _refreshServerStatus () {
     try {
       this.serverStatus = new ServerStatus(
-        await request({ uri: this.apiUri, auth: this.basicAuth, json: true })
+        (await request({
+          uri: this.apiUri,
+          auth: this.basicAuth,
+          json: true
+        }))
       )
       debug(`get server status from ${this.apiUri}`)
-      this.apiUri = ''
       await this._selectNode()
     } catch (error) {
       debug(`${error.message}`)
@@ -33,11 +51,21 @@ class RqliteClinet {
     }
   }
 
+  /**
+   * Select the fastest node
+   * 
+   * @memberof RqliteClinet
+   */
   async _selectNode () {
+    this.apiUri = '' // delete previous api uri
     var aNodeAPIAddr = _.values(this.serverStatus.store.meta.APIPeers)
     _.map(aNodeAPIAddr, async sApiAddr => {
       try {
-        var formatedAddr = this._formatAddr({ uri: sApiAddr, json: true, auth: this.basicAuth })
+        var formatedAddr = this._formatAddr({
+          uri: sApiAddr,
+          json: true,
+          auth: this.basicAuth
+        })
         await request(`${formatedAddr}/status`)
         if (!this.apiUri) {
           this.apiUri = formatedAddr
@@ -114,7 +142,9 @@ class ServerStatus {
     this.store = {
       addr: status.store.addr,
       apply_timeout: status.store.apply_timeout,
-      meta: status.store.meta,
+      meta: {
+        APIPeers: status.store.meta.APIPeers
+      },
       peers: status.store.peers,
       raft: status.store.raft,
       leader: status.store.leader,

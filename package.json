@@ -1,5 +1,5 @@
 {
-  "name": "rqlite-nodejs",
+  "name": "rqlite",
   "version": "1.0.0",
   "description": "rqlite client for nodejs",
   "main": "rqlite-client.js",
